@@ -1,0 +1,16 @@
+server:
+  port: 8081
+
+management:
+  endpoint:
+    health:
+      show-details: always
+
+feign:
+  httpclient:
+    disable-ssl-validation: true
+    enabled: false
+  okhttp:
+    enabled: true
+
+http_unstable_url: localhost:8080
