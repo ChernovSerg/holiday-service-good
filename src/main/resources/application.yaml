@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8888
 
 management:
   endpoint:
@@ -13,4 +13,11 @@ feign:
   okhttp:
     enabled: true
 
-http_unstable_url: localhost:8080
+springdoc:
+  api-docs:
+    path: /holidays-api-docs
+  swagger-ui:
+    path: /holidays-swagger.html
+  show-actuator: true
+
+http_unstable_url: service-unstable:8080

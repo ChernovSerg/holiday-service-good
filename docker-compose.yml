@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  holiday-service-good:
+    container_name: service-good
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: service-good:latest
+    ports:
+      - 8888:8888
+    networks:
+      - local
+
+  holiday-unstable-service:
+    container_name: service-unstable
+    build:
+      context: ../holiday-unstable-service
+      dockerfile: Dockerfile
+    image: service-unstable:latest
+    ports:
+      - 8080:8080
+    networks:
+      - local
+
+networks:
+  local:
+    driver: bridge
