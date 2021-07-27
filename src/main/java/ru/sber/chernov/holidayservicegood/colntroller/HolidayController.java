@@ -28,7 +28,7 @@ public class HolidayController {
 
         //бизнес логика формирования ответа для клиента в зависимости от ответа сервиса
         String responseService = holidayService.getHolidayFromUnstable(request);
-        if (!NumberUtils.isDigits(responseService)) {
+        if (!NumberUtils.isParsable(responseService)) {
             return new ResponseEntity<>(responseService, HttpStatus.OK);
         } else {
             if (Integer.parseInt(responseService) == 0) {
