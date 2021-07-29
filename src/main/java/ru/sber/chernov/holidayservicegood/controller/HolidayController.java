@@ -1,4 +1,4 @@
-package ru.sber.chernov.holidayservicegood.colntroller;
+package ru.sber.chernov.holidayservicegood.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
