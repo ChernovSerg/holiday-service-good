@@ -20,4 +20,18 @@ springdoc:
     path: /holidays-swagger.html
   show-actuator: true
 
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: sa
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+
 http_unstable_url: service-unstable:8080
+#http_unstable_url: localhost:8080

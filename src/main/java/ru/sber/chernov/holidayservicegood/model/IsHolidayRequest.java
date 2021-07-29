@@ -15,6 +15,6 @@ public class IsHolidayRequest {
     private String date;
 
     @JsonProperty("workDaysCount")
-    @Schema(description = "Кол-во рабочих дней (положительное или отрицательное), которое необходимо прибавить или отнять от Даты date", example = "5")
+    @Schema(description = "Кол-во рабочих дней (положительное или отрицательное), которое необходимо прибавить или отнять от Даты date", example = "3")
     private int workDaysCount;
 }

@@ -3,14 +3,15 @@ package ru.sber.chernov.holidayservicegood.colntroller;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.sber.chernov.holidayservicegood.config.Constants;
 import ru.sber.chernov.holidayservicegood.model.IsHolidayRequest;
+import ru.sber.chernov.holidayservicegood.model.ProcessingDto;
 import ru.sber.chernov.holidayservicegood.service.HolidayService;
 
 @RestController
@@ -27,15 +28,16 @@ public class HolidayController {
         log.info("Trying to find out next work day {}", request);
 
         //бизнес логика формирования ответа для клиента в зависимости от ответа сервиса
-        String responseService = holidayService.getHolidayFromUnstable(request);
-        if (!NumberUtils.isParsable(responseService)) {
-            return new ResponseEntity<>(responseService, HttpStatus.OK);
-        } else {
-            if (Integer.parseInt(responseService) == 0) {
-                return new ResponseEntity<>("Accepted. Operation in progress.", HttpStatus.ACCEPTED);
-            } else {
+        ProcessingDto responseService = holidayService.getHolidayFromUnstable(request);
+        switch (responseService.getStatus()) {
+            case Constants.STATUS_OK:
+                return new ResponseEntity<>(responseService.getDateResult().toString(), HttpStatus.OK);
+            case Constants.STATUS_ERROR:
                 return new ResponseEntity<>("External service for determine the holiday is not available", HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            case Constants.STATUS_PROCESSING:
+                return new ResponseEntity<>("Accepted. Operation in progress.", HttpStatus.PROCESSING);
+            default:
+                return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 }
